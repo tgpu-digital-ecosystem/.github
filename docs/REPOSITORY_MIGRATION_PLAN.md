@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Khalifah Kecil ownership transfer and post-transfer Azure deployment confirmed; independent live-domain check pending  
+**Status:** Khalifah Kecil ownership and Azure deployment verified; Learning Hub ownership and Cloudflare rerun verified (automatic push deployment check pending)  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -175,3 +175,16 @@ GitHub preflight confirms the source repository exists with administrative acces
 **Risk gate:** Private repositories moving to a GitHub Free organisation may lose some paid-plan features such as protected branches or GitHub Pages. No such feature is verified as actively configured for this source repository. No private→public visibility change is permitted. Public uptime cannot be independently verified by this tool; rely on successful release smoke checks and perform live checks after transfer.
 
 **Planned procedure:** Owner transfers via repository Settings → General → Danger Zone → Transfer ownership into `tgpu-digital-ecosystem`. Assistant then verifies repository identity, privacy and history, safely triggers the existing Cloudflare deployment job, inspects the resulting run, updates README's owner reference only after deployment proves safe, and marks the result in this log. Do not modify any other production repositories automatically.
+
+
+## Learning Hub transfer & Cloudflare verification — 8 October 2026
+
+**Transfer confirmed:** `tgpu-digital-ecosystem/tgpu-learning-hub` exists under the official TGPU organisation, remains **private**, retains `main` and original repository ID `1406945164`, and the former owner path redirects to the new repository. GitHub Actions history was retained.
+
+**Post-transfer deployment passed:** With the owner's instruction to proceed, the assistant triggered rerun attempt **#2** of [GitHub Actions run 37523065381](https://github.com/tgpu-digital-ecosystem/tgpu-learning-hub/actions/runs/37523065381), which completed **successfully**. Every critical stage passed: checkout, required files, Cloudflare project check, Pages deployment, custom-domain attachment, DNS record check, and `learning.tgpu.my` custom-domain and logo verification. The Cloudflare credentials required no modification for this rerun.
+
+**Documentation aligned:** The private Learning Hub repository README's GitHub repository path was updated from `MamduhSaffin/tgpu-learning-hub` to `tgpu-digital-ecosystem/tgpu-learning-hub` in commit `25a8ce2320b0f861601a218d82f8ab3cbb15f6fa`. The public TGPU organisation profile acknowledges the Learning Hub as a **private** organisation repository without revealing private code.
+
+**Automatic deployment verification:** That README commit triggered a fresh **push** workflow [run 37741285056](https://github.com/tgpu-digital-ecosystem/tgpu-learning-hub/actions/runs/37741285056) from the new owner. At the time of this log entry it was **queued**, not yet verified as successful. Confirm this result and mark fully complete only after the push-triggered run finishes successfully. Do not expose secret values or make the private repository public.
+
+**Other projects:** Academy remains a candidate for independent preflight; no other production repository was transferred as part of Learning Hub migration.
