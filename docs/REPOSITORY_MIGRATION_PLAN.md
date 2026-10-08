@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Five repositories (Khalifah Kecil, Learning Hub, Academy, AMAL, Iqra) transferred; Azure/Cloudflare post-transfer deployments verified; Iqra production smoke workflow and live-device/audio QA still pending  
+**Status:** Six repositories transferred, including TEMAN Haramain (post-transfer Azure job underway); SATU still on founder account and transfer blocked pending Azure investigation; Iqra production smoke and mobile QA pending  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -358,3 +358,14 @@ Both files were verified in the pinned SATU commit and on the present SATU main 
 3. **Retarget pinned TEMAN map source:** change only the GitHub repository owner component of TEMAN's two PMTiles URLs to `tgpu-digital-ecosystem/SATU`, keeping commit `59ca2c8535b83b77e6f41ab80584e29cd5c05794` and paths/contents unchanged. Verify map assets are accessible and tests/deployment still work. Keep public source licences/attributions.
 
 **Do not-act-yet:** No mass transfers, no DNS or token rotations without evidence, no PWA/mobile app feature changes during ownership migration, no regenerated or replaced Protomaps map data, no deletion of SATU's embedded historical TEMAN code or map branch, and no statements guaranteeing safety functionality before fresh testing.
+
+
+## TEMAN ownership transfer — 8 October 2026
+
+**Verified:** `tgpu-digital-ecosystem/TEMAN-Haramain-by-TGPU` is now owned by the official TGPU organisation and remains **PUBLIC**, with repository ID `1396888337`, default `main`, and GitHub Actions history preserved. The former URL redirects to the transferred repo. `MamduhSaffin/SATU` remains **PUBLIC** under the founder, so the existing TEMAN pinned offline-map URL source is unchanged. Current TEMAN workflow still references SATU commit `59ca2c8535b83b77e6f41ab80584e29cd5c05794` with both original paths.
+
+**Post-transfer test started:** A controlled rerun of the failed `Build and Deploy TEMAN` job from [GitHub Actions run 37519757279](https://github.com/tgpu-digital-ecosystem/TEMAN-Haramain-by-TGPU/actions/runs/37519757279), attempt #2, was accepted by GitHub. Latest known status at this log entry: **in progress**, with pinned PMTiles downloads completed successfully. The earlier successful regression/build test was preserved. The existing production-domain verification had failed on attempt #1 even though the Azure deploy step succeeded; do not claim end-to-end success without the latest run conclusion.
+
+**Known baseline discrepancies:** `public/release.html` declares `teman-v10-feedback-mobile-2026-10-07`, but `public/sw.js` still declares `teman-shell-v9`, whereas the current live verification step expects `teman-shell-v10`. Do not blindly change service-worker cache names during transfer; determine the intended release version and actual live HTTP response first. The GitHub profile URL for TEMAN was updated to its organisation-owned address.
+
+**SATU hold remains in force.** Its latest Azure upload failed with `No matching Static Web App environment was found`. Diagnose/validate the SATU Azure environment and token before transferring SATU or changing TEMAN's pinned download URLs. No SATU transfer has occurred.
