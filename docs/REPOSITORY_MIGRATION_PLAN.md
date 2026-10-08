@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Khalifah Kecil, Learning Hub and Academy ownership transfers and post-transfer deployments verified; further repositories pending individual preflight  
+**Status:** Khalifah Kecil, Learning Hub, Academy and AMAL ownership transfers and post-transfer deployments verified; AMAL independent custom-domain check pending  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -253,3 +253,18 @@ GitHub preflight confirms the source repository exists with administrative acces
 - **Transfer rules:** Owner transfers via repo Settings → General → Danger Zone → Transfer ownership to `tgpu-digital-ecosystem`, keeping `tgpu-amal` PRIVATE. Do not change Cloudflare DNS, Worker name, `wrangler.toml` routes, or API tokens solely to perform GitHub ownership transfer.
 - **Post-transfer tests:** Verify same repo ID, private visibility, `main`, source commit, workflow and Actions history. Rerun the previous successful Worker deployment job under the organisation, confirm all steps passed. Then correct the README and stale Pages setup docs in a documentation-only commit; verify push triggers both Worker deployment and the quality gate successfully. Confirm current `amal.tgpu.my` site via a user-side browser check before marking end-to-end production validation complete. Update TGPU profile to acknowledge AMAL as private without exposing source.
 - **Do-not-act-yet:** No other repository transfers, secret rotation, DNS work, Cloudflare Pages project setup, or code modifications. AMAL transfer needs an explicit action by the GitHub owner.
+
+
+## AMAL post-transfer execution and verification — 8 October 2026
+
+**Repository ownership: COMPLETE.** Verified `tgpu-digital-ecosystem/tgpu-amal` with GitHub repository ID `1406139723` unchanged, source private visibility preserved, default branch `main`, previous source URL redirecting to the organisation, workflows and run history intact. No other repository was transferred as part of AMAL's migration.
+
+**Worker deployment after transfer: SUCCESS.** Via the connected GitHub app and owner instruction, the prior successful Worker deployment job was rerun under the TGPU organisation: [run 37523630452, attempt #2](https://github.com/tgpu-digital-ecosystem/tgpu-amal/actions/runs/37523630452), completed successfully 2026-10-08 07:17:48 UTC. All stages passed, including Node/npm install, build, API token presence check, Cloudflare Wrangler Worker deployment and smoke test of `tgpu-amal.moesaffin.workers.dev`. No secret values were exposed or rotated.
+
+**Documentation corrected:** A single documentation-only commit `790dde019e9558472686a1ae0fa53c855ca970b3` updated the README to reflect **Cloudflare Workers** and organisation ownership; marked `docs/CLOUDFLARE_PAGES_SETUP.md` obsolete; and added `docs/CLOUDFLARE_WORKERS_SETUP.md` as a description of the active setup. Production worker sources, `wrangler.toml`, custom-domain routing and DNS configurations were not modified. The TGPU organisation profile was updated to mention AMAL as a **private** repository.
+
+**Normal push-triggered deployment: SUCCESS.** This documentation commit automatically triggered both [Worker deploy run 37742678745](https://github.com/tgpu-digital-ecosystem/tgpu-amal/actions/runs/37742678745) and [quality-gate run 37742678767](https://github.com/tgpu-digital-ecosystem/tgpu-amal/actions/runs/37742678767). Both completed successfully. The Worker deploy workflow's `Deploy Worker` and `Smoke test Workers dev route` steps passed. Therefore the GitHub Actions integration can continue deploying the Worker from the new owner after ordinary pushes.
+
+**Outstanding limitation:** `https://amal.tgpu.my/` is configured as a Worker custom domain, but GitHub's current workflow smoke-tests only the Workers.dev endpoint, and independent access to the custom domain through the available web tool was unsuccessful. Do not claim the custom-domain HTTP response, mobile UX, logo or end-user functionality have passed a fresh external QA check. Custom-domain browser verification is **PENDING**. The migration of GitHub ownership and CI/Worker deploy is **COMPLETE**.
+
+**Next candidate:** TGPU Iqra requires an independent preflight, including Azure deployment token, audio assets, dependencies and live PWA behaviour before any transfer. No automatically generated or unreviewed code changes to Iqra have been authorised.
