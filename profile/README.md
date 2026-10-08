@@ -62,11 +62,11 @@ The ecosystem includes independent products at different stages of development. 
 Selected repositories from the TGPU organisation and founder's development portfolio:
 
 - [TEMAN Haramain — TGPU organisation](https://github.com/tgpu-digital-ecosystem/TEMAN-Haramain-by-TGPU)
-- [SATU](https://github.com/MamduhSaffin/SATU)
+- [SATU — TGPU organisation](https://github.com/tgpu-digital-ecosystem/SATU)
 - [Khalifah Kecil — TGPU organisation](https://github.com/tgpu-digital-ecosystem/khalifah-kecil)
 - [GCC Market Entry](https://github.com/MamduhSaffin/sell-to-the-middle-east)
 
-**Khalifah Kecil** (public), **TEMAN Haramain** (public), **TGPU Learning Hub** (private), **TGPU Academy** (private), **AMAL** (private), and **TGPU Iqra** (private) are now managed under this organisation. Private source code is available only to authorised collaborators. Other projects listed above remain under the founder's GitHub account, and further migrations will proceed one at a time after deployment checks.
+**Khalifah Kecil** (public), **TEMAN Haramain** (public), **SATU** (public), **TGPU Learning Hub** (private), **TGPU Academy** (private), **AMAL** (private), and **TGPU Iqra** (private) are now managed under this organisation. Private source code is available only to authorised collaborators. Other projects listed above remain under the founder's GitHub account, and further migrations will proceed one at a time after deployment checks.
 
 ## Organisation & collaboration
 
