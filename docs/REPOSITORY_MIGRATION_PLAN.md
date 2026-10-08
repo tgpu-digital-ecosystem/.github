@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Khalifah Kecil ownership and Azure deployment verified; Learning Hub ownership and Cloudflare rerun verified (automatic push deployment check pending)  
+**Status:** Khalifah Kecil and Learning Hub ownership transfers and post-transfer deployments verified; next repository pending preflight  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -185,6 +185,6 @@ GitHub preflight confirms the source repository exists with administrative acces
 
 **Documentation aligned:** The private Learning Hub repository README's GitHub repository path was updated from `MamduhSaffin/tgpu-learning-hub` to `tgpu-digital-ecosystem/tgpu-learning-hub` in commit `25a8ce2320b0f861601a218d82f8ab3cbb15f6fa`. The public TGPU organisation profile acknowledges the Learning Hub as a **private** organisation repository without revealing private code.
 
-**Automatic deployment verification:** That README commit triggered a fresh **push** workflow [run 37741285056](https://github.com/tgpu-digital-ecosystem/tgpu-learning-hub/actions/runs/37741285056) from the new owner. At the time of this log entry it was **queued**, not yet verified as successful. Confirm this result and mark fully complete only after the push-triggered run finishes successfully. Do not expose secret values or make the private repository public.
+**Automatic deployment verification — COMPLETE:** That README commit triggered a fresh **push** workflow [run 37741285056](https://github.com/tgpu-digital-ecosystem/tgpu-learning-hub/actions/runs/37741285056) from the new owner. It completed **successfully** at 2026-10-08 07:06:21 UTC. GitHub Actions reports success for Cloudflare Pages deployment, custom-domain confirmation, DNS record check and production domain/logo verification. This establishes that the normal push-driven production deployment continues to work after the ownership transfer. Do not expose secret values or make the private repository public.
 
 **Other projects:** Academy remains a candidate for independent preflight; no other production repository was transferred as part of Learning Hub migration.
