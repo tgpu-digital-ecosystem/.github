@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Six repositories transferred; TEMAN post-transfer Azure deployment passed, but its pre-existing production live-verification step still fails; SATU transfer remains on hold pending Azure repair; Iqra smoke/mobile QA pending  
+**Status:** Six repositories transferred; TEMAN post-transfer Azure deploy passed and owner confirmed website opens on phone, with separate CI smoke verification still failing; SATU remains on hold pending Azure investigation; Iqra smoke/mobile QA pending  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -371,4 +371,4 @@ Both files were verified in the pinned SATU commit and on the present SATU main 
 **SATU hold remains in force.** Its latest Azure upload failed with `No matching Static Web App environment was found`. Diagnose/validate the SATU Azure environment and token before transferring SATU or changing TEMAN's pinned download URLs. No SATU transfer has occurred.
 
 
-**TEMAN decision gate:** The GitHub transfer and ability to deploy to Azure from the organisation are verified. Final public `teman.tgpu.my` domain QA remains **PENDING / FAILED CI**; available public browsing and container resolution could not verify the domain independently. Safest next steps are a narrow diagnostic improvement to the smoke-test workflow (identify which public-domain assertion fails) and review intended v9/v10 cache policy with care. Do **not** reset tokens, modify offline maps, or automatically transfer SATU while its Azure failure remains unresolved.
+**TEMAN decision gate (updated with owner phone check):** The GitHub transfer and ability to deploy to Azure from the organisation are verified. On **8 October 2026**, the owner confirmed in chat that `https://teman.tgpu.my/` opens and appears normal on their phone (reply: “All good”). This is an **owner-reported live-site accessibility check**, not an independent HTTP verification of all routes, offline maps, SOS/Family Link features, or security controls. The GitHub workflow's `Verify live production domain` step still fails; the automated smoke-test defect is **UNRESOLVED**. Safest next steps are a narrow diagnostic improvement to the smoke-test workflow and review of intended v9/v10 cache policy. Do **not** reset tokens, modify offline maps, or automatically transfer SATU while its Azure failure remains unresolved.
