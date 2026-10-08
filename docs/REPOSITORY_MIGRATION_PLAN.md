@@ -268,3 +268,36 @@ GitHub preflight confirms the source repository exists with administrative acces
 **Outstanding limitation:** `https://amal.tgpu.my/` is configured as a Worker custom domain, but GitHub's current workflow smoke-tests only the Workers.dev endpoint, and independent access to the custom domain through the available web tool was unsuccessful. Do not claim the custom-domain HTTP response, mobile UX, logo or end-user functionality have passed a fresh external QA check. Custom-domain browser verification is **PENDING**. The migration of GitHub ownership and CI/Worker deploy is **COMPLETE**.
 
 **Next candidate:** TGPU Iqra requires an independent preflight, including Azure deployment token, audio assets, dependencies and live PWA behaviour before any transfer. No automatically generated or unreviewed code changes to Iqra have been authorised.
+
+
+## TGPU Iqra preflight — 8 October 2026
+
+**Migration state:** CONDITIONAL / READY FOR OWNER TRANSFER, with **pre-existing production smoke-test failures** requiring review after transfer. No repository transfer or Iqra application changes were performed during this preflight.
+
+**Source:** `MamduhSaffin/tgpu-iqra`, PRIVATE, `main` branch; original repo ID `1392955949` (use to verify repository continuity).  
+**Target:** `tgpu-digital-ecosystem/tgpu-iqra`; destination does not exist, so name is available.  
+**Baseline main SHA:** `fc7054b65c0c9337d6893cca78d319b4cdb4f405`, 6 Oct 2026 at 20:10:32 UTC.  
+**Hosting:** Azure Static Web Apps, domain `iqra.tgpu.my`; no hosting or DNS changes should be made during ownership transfer.
+
+### Verified pre-transfer GitHub baseline
+
+- Active deployment: `.github/workflows/azure-static-web-apps.yml`, triggered on `main` push or manual dispatch; uses `Azure/static-web-apps-deploy@v1` with `skip_app_build: true`; requires GitHub Actions secret name `AZURE_STATIC_WEB_APPS_API_TOKEN`. GitHub's automatically supplied `GITHUB_TOKEN` is referenced for repo token. Never share credential values.
+- Pre-transfer [Azure deployment run 37524447816](https://github.com/MamduhSaffin/tgpu-iqra/actions/runs/37524447816) was **successful** on 6 Oct 2026, including Deploy step.
+- [PWA integrity run 37524447935](https://github.com/MamduhSaffin/tgpu-iqra/actions/runs/37524447935) was **successful** on the same commit; checks JS syntax, JSON manifests, local resource references and service-worker shell resource existence.
+- **Exception:** [production smoke workflow run 37524446148](https://github.com/MamduhSaffin/tgpu-iqra/actions/runs/37524446148) was **failure** at startup on 6 Oct 2026 with **0 jobs**. Its raw event was `push` even though `.github/workflows/post-deploy-smoke.yml` declares a `workflow_run` trigger; cause not confirmed. This is a pre-existing problem, **not** caused by the organisation migration. Diagnose separately before claiming end-to-end smoke verification. Do not blindly disable the check.
+- The smoke-test source expects `tgpu-iqra-v83` in `sw.js`, but actual `sw.js` declares cache name `tgpu-iqra-v82`. The repo's release marker says `iqra-v83-trilingual-2026-10-07`. Even after workflow startup is corrected, this version expectation must be reconciled against the **approved production release**; do not silently rewrite it without validating cache/version semantics.
+- `index.html` references `home-shell-v68.js?v=81`, while the smoke-test's static index checks expect `home-shell-v68.js?v=77`. This is another pre-existing version mismatch that would fail the existing smoke test. Fix the check only after grounding the correct release specification.
+- `data/audio/manifest.json` contains 28 Iqra items but **zero `audioVerified: true` entries and zero production audio URLs**. Build/manifest validation therefore does **not** confirm working spoken audio. The user previously reported audio not working on mobile; this migration must not be used to claim voice is fixed. Audio recording/review and mobile playback require a separate product-quality workflow.
+- `QURAN_SOURCE_REVIEW.md` describes the Quran reader as intentionally excluded from active runtime since v59, and independent human Quran text review as pending. Quran-related material must not be described as certified or fully reviewed.
+- Service worker and manifest keep PWA shell and approved icon references; transferring the repository must not change official brand assets, media URLs, learner progress storage, cache identifiers or custom domains.
+- Independent public HTTP verification of `https://iqra.tgpu.my/` was unavailable from the browsing environment; the app may still work, but this is not independently confirmed at preflight.
+
+### Controlled ownership transfer gate
+
+1. The owner, not the GitHub app, must open `https://github.com/MamduhSaffin/tgpu-iqra/settings` and use **Danger Zone → Transfer ownership** to `tgpu-digital-ecosystem`. Keep repo `tgpu-iqra` **PRIVATE**. Avoid changing Azure source connection, DNS or tokens until evidence they need updates.
+2. Assistant verifies transferred repo ID, privacy, branch, source SHA and workflow history. Rerun the existing Azure deploy from the new owner and inspect `Deploy` step; verify the PWA integrity workflow (either triggered by a controlled docs commit, if safe, or via existing Actions UI where no API dispatch is available).
+3. Review pre-existing broken `post-deploy-smoke.yml` startup and version mismatches before editing a production smoke test. Any CI-only change must be narrow and justified, and its push-triggered deployment checked.
+4. Confirm `https://iqra.tgpu.my/` still works, preferably via an independent browser visit. Do not claim mobile audio, academic review or cache freshness are passed solely because CI deployed.
+5. Update organisation profile and migration record, keeping repository private; do not move other repositories until Iqra transfer checks conclude.
+
+**Do-not-act-yet:** Do not modify or replace the approved Iqra logo, author new recorded audio, enable Quran reader, set `audioVerified` or `published` without review, rotate Azure token, reset browser progress, or reconfigure production DNS solely for a GitHub transfer.
