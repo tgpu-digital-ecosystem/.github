@@ -55,6 +55,12 @@ The owner reports that a new Azure Static Web Apps deployment secret value has b
 
 **Next gate:** confirm the secret is named exactly `AZURE_STATIC_WEB_APPS_API_TOKEN` in the currently active source repository, run an authorised deployment or workflow validation, and verify `https://khalifah.tgpu.my/` is still healthy. A repository transfer remains **ON HOLD** pending destination secret / Azure deployment-source preflight and explicit transfer approval. Do not share the secret value.
 
+### Verified Azure deployment rerun — 8 October 2026
+
+**Confirmed through GitHub Actions:** Run [37523198371](https://github.com/MamduhSaffin/khalifah-kecil/actions/runs/37523198371), attempt **2**, was completed with **success** at 2026-10-08 03:20:30 UTC (11:20:30 MYT). The `build_and_deploy` job and `Deploy` step both succeeded. The rerun used the current repository secret configuration; secret values are not visible to the connector.
+
+**Still pending:** Independent verification of `https://khalifah.tgpu.my/` (automated web access could not reach it); Azure Static Web App repository association / app authorisation; verification of secret availability after transfer; final owner approval for moving this production repo. **No ownership transfer performed.**
+
 ### Pilot preflight
 
 - [ ] Confirm the source site's current production availability and record an independent rollback reference.
