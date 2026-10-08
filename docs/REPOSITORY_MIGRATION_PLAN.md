@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Six repositories transferred; TEMAN post-transfer Azure deploy passed and owner confirmed website opens on phone, with separate CI smoke verification still failing; SATU remains on hold pending Azure investigation; Iqra smoke/mobile QA pending  
+**Status:** Six repositories transferred; SATU source Azure rerun and production check succeeded, so SATU is ready for owner-initiated transfer; TEMAN smoke CI and Iqra smoke/mobile QA remain pending  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -372,3 +372,15 @@ Both files were verified in the pinned SATU commit and on the present SATU main 
 
 
 **TEMAN decision gate (updated with owner phone check):** The GitHub transfer and ability to deploy to Azure from the organisation are verified. On **8 October 2026**, the owner confirmed in chat that `https://teman.tgpu.my/` opens and appears normal on their phone (reply: “All good”). This is an **owner-reported live-site accessibility check**, not an independent HTTP verification of all routes, offline maps, SOS/Family Link features, or security controls. The GitHub workflow's `Verify live production domain` step still fails; the automated smoke-test defect is **UNRESOLVED**. Safest next steps are a narrow diagnostic improvement to the smoke-test workflow and review of intended v9/v10 cache policy. Do **not** reset tokens, modify offline maps, or automatically transfer SATU while its Azure failure remains unresolved.
+
+
+## SATU Azure isolated deployment recovery and transfer gate — 8 October 2026
+
+**Deployment readiness: VERIFIED. Repository transfer: PENDING OWNER ACTION.** After SATU's 6 Oct deployment failure `No matching Static Web App environment was found`, a controlled isolated rerun of the latest failed job was triggered in the original source repository (no concurrent SATU deployment runs observed at initiation). [GitHub Actions run 37523177957, attempt #2](https://github.com/MamduhSaffin/SATU/actions/runs/37523177957) completed **successfully** at 2026-10-08 07:41:23 UTC. All steps passed: checkout, dependency installation, build, approved SATU assets, Azure Static Web Apps deployment, and production-domain check (`satu.tgpu.my`, manifest, approved logo, robots.txt). No code, logo assets, repository owner, Azure token or DNS settings were changed to achieve this success. The previous failure could have been linked to overlapping deployments but root cause is **not conclusively established**. Avoid concurrent production deployment jobs.
+
+- Current source: [`MamduhSaffin/SATU`](https://github.com/MamduhSaffin/SATU); PUBLIC, main; existing repo ID `1390665990` and baseline SHA `19249761746edc9a374b87b1836d96595785da3c`.
+- Planned destination: `tgpu-digital-ecosystem/SATU` (verified not currently occupied).
+- **Owner transfer gate now open:** Owner transfers using repository **Settings → General → Danger Zone → Transfer ownership** to `tgpu-digital-ecosystem`, preserving repository name `SATU` and **PUBLIC** visibility. The connected GitHub tool cannot execute ownership transfer.
+- After transfer, assistant must confirm ID, `main`, public status, workflow/history, rerun successful SATU Azure deployment and verify production domain. A controlled documentation-only commit may be used to check automatic push-based deployment, while minimising concurrency.
+- **Cross-repository dependency:** TEMAN Haramain currently downloads two **pinned** map assets from `raw.githubusercontent.com/MamduhSaffin/SATU/59ca2c8535b83b77e6f41ab80584e29cd5c05794/public/maps/`. After SATU transfer, verify both map URLs under new org and update only TEMAN's workflow source owner to `tgpu-digital-ecosystem/SATU`, keeping the pinned SHA and filenames unchanged, and test the TEMAN workflow carefully. Do not regenerate maps, change route coordinates, or alter PWA cache semantics as part of this owner-only update.
+- **TEMAN outstanding:** Its live site opened correctly on the owner's phone but CI's live-domain verification step still fails due to a pre-existing issue, including a known SW cache expectation `v10` against checked-in `v9`. Avoid marking TEMAN end-to-end CI as passed merely because map URLs are updated.
