@@ -61,6 +61,16 @@ The owner reports that a new Azure Static Web Apps deployment secret value has b
 
 **Still pending:** Independent verification of `https://khalifah.tgpu.my/` (automated web access could not reach it); Azure Static Web App repository association / app authorisation; verification of secret availability after transfer; final owner approval for moving this production repo. **No ownership transfer performed.**
 
+### Production confirmation & migration gate — 8 October 2026
+
+- **Production site:** The owner confirmed `https://khalifah.tgpu.my/` was **working**, following the successful Azure GitHub Actions rerun.
+- **Source repository:** `MamduhSaffin/khalifah-kecil` remains public on branch `main`, with repository admin access confirmed.
+- **Target organisation:** `tgpu-digital-ecosystem` exists and does not currently have a `khalifah-kecil` repository.
+- **GitHub transfer behaviour:** GitHub documentation says repository-level **secrets, webhooks and deploy keys are preserved** during a transfer, along with commit history, issues and pull requests. However, confirm permissions and workflow configuration after transfer.
+- **Azure coupling:** Existing Azure Static Web App source association / GitHub app authorisation in the **destination organisation has not been verified**. This can affect future automatic builds even where the site remains accessible.
+- **State:** **Ready for owner-directed transfer procedure**, subject to GitHub target acceptance and post-transfer Azure validation. **NOT TRANSFERRED**. No secret values should be shared in chat.
+- **Next execution:** Owner must use source repo Settings → General → Danger Zone → Transfer ownership; target `tgpu-digital-ecosystem`, repository name `khalifah-kecil`. After completing the transfer, verify the new repo path, secret name, Actions permissions, Azure source link and production domain. Record final status only after both the GitHub and Azure checks pass.
+
 ### Pilot preflight
 
 - [ ] Confirm the source site's current production availability and record an independent rollback reference.
