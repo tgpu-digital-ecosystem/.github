@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Khalifah Kecil and Learning Hub ownership transfers and post-transfer deployments verified; next repository pending preflight  
+**Status:** Khalifah Kecil, Learning Hub and Academy ownership transfers and post-transfer deployments verified; further repositories pending individual preflight  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -221,3 +221,18 @@ GitHub preflight confirms the source repository exists with administrative acces
 6. Assistant updates the public TGPU organisation profile without exposing private source code and records the migration result here.
 
 **Do not** disable Actions, reset Cloudflare credentials, reconfigure DNS or move another production repository unless a specific failed check requires a separate reviewed action. GitHub Free organisation private-repository settings and protections should be reviewed after transfer where relevant.
+
+
+## Academy migration execution and verification — 8 October 2026
+
+**Status: COMPLETE — verified GitHub ownership transfer and normal Cloudflare continuous deployment.**
+
+- New repository: [`tgpu-digital-ecosystem/tgpu-academy`](https://github.com/tgpu-digital-ecosystem/tgpu-academy), **PRIVATE**.
+- Original repository ID `1406947238` is unchanged; `main` branch and action history retained; old `MamduhSaffin/tgpu-academy` URL redirects to the new repository.
+- First post-transfer check: [GitHub Actions run 37713897424, attempt #2](https://github.com/tgpu-digital-ecosystem/tgpu-academy/actions/runs/37713897424), manually rerun by the connected GitHub app at the owner's instruction. Job **completed successfully**, including static build, Cloudflare credentials, Cloudflare Pages deployment, custom domain, DNS and production URL verification of the Academy homepage and Study Malaysia guide.
+- Updated README repository attribution in commit `68a432a61f6f5bf854a29715ec76ea71096a3567`; only the repository owner reference changed.
+- Second post-transfer check: normal push-triggered [GitHub Actions run 37741843060](https://github.com/tgpu-digital-ecosystem/tgpu-academy/actions/runs/37741843060), completed **successfully** at 2026-10-08 07:11:16 UTC. Cloudflare deploy, custom domain, DNS and Academy public URL verification all passed.
+- Official organisation profile updated to reflect Academy as a **private** organisation repository without exposing private code.
+- No Cloudflare secrets were revealed, rotated or updated; no DNS changes were manually performed. Workflow's existing DNS consistency checks executed successfully.
+
+**Next:** Continue to the next product only after a separate preflight. Cloudflare's successful workflow verifies the public URL at deployment time; independent review of mobile UI and product behaviour is outside this migration scope. Do not imply accreditation or LMS capabilities beyond the Academy's established status.
