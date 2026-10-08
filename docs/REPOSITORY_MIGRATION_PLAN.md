@@ -49,6 +49,12 @@ An organisation does not need GitHub Enterprise for this work. Maintain existing
 
 This is a **candidate** only, not an approved transfer. The repository is comparatively small, but moving it can still interrupt deployment.
 
+### Owner update — 8 October 2026
+
+The owner reports that a new Azure Static Web Apps deployment secret value has been entered for the Khalifah Kecil project. **This is owner-reported and not independently verified**: the connector cannot inspect Actions secret values or confirm their presence. The most recent successful Azure deployment workflow observed in GitHub Actions completed on **6 October 2026** (run [37523198371](https://github.com/MamduhSaffin/khalifah-kecil/actions/runs/37523198371)), before this change.
+
+**Next gate:** confirm the secret is named exactly `AZURE_STATIC_WEB_APPS_API_TOKEN` in the currently active source repository, run an authorised deployment or workflow validation, and verify `https://khalifah.tgpu.my/` is still healthy. A repository transfer remains **ON HOLD** pending destination secret / Azure deployment-source preflight and explicit transfer approval. Do not share the secret value.
+
 ### Pilot preflight
 
 - [ ] Confirm the source site's current production availability and record an independent rollback reference.
