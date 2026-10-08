@@ -71,6 +71,14 @@ The owner reports that a new Azure Static Web Apps deployment secret value has b
 - **State:** **Ready for owner-directed transfer procedure**, subject to GitHub target acceptance and post-transfer Azure validation. **NOT TRANSFERRED**. No secret values should be shared in chat.
 - **Next execution:** Owner must use source repo Settings → General → Danger Zone → Transfer ownership; target `tgpu-digital-ecosystem`, repository name `khalifah-kecil`. After completing the transfer, verify the new repo path, secret name, Actions permissions, Azure source link and production domain. Record final status only after both the GitHub and Azure checks pass.
 
+### Manual transfer instruction prepared — 8 October 2026
+
+- User has confirmed the live site works and instructed the assistant to proceed.
+- The source repository `MamduhSaffin/khalifah-kecil` was verified to exist, remain public on `main`, and be administrable by the connected GitHub account.
+- `tgpu-digital-ecosystem/khalifah-kecil` did not exist when checked. The organisation's GitHub App has `all repositories` access.
+- GitHub Actions rerun [37523198371](https://github.com/MamduhSaffin/khalifah-kecil/actions/runs/37523198371) attempt #2 completed successfully; the owner separately confirmed the live website functions.
+- **The connected GitHub app provides no repository-transfer operation**, and Azure Static Web App source association cannot be queried through the available integration. Owner must perform GitHub's UI transfer, then the new repository path and Azure deployment must be independently verified. Do not represent the migration as complete yet.
+
 ### Pilot preflight
 
 - [ ] Confirm the source site's current production availability and record an independent rollback reference.
