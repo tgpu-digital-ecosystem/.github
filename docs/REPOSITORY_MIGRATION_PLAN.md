@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Seven repositories transferred; TEMAN's full automated Azure/live-site smoke workflow now passes (8 Oct 2026); separate Iqra smoke/mobile audio QA and remaining ecosystem migrations pending.
+**Status:** Seven repositories transferred; TEMAN and Iqra Azure/production smoke workflows now pass. Iqra Arabic device-voice fallback is hardened and CI tested; verified MP3 publication and real-phone playback remain pending. Other ecosystem repository migrations require individual preflight.
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -419,3 +419,21 @@ Both files were verified in the pinned SATU commit and on the present SATU main 
 - No TEMAN production application JS/TS/CSS, service worker, PWA cache identifier, approved branding assets, map binary files, emergency/SOS logic, DNS settings or Azure secret values were changed to resolve the smoke test. Changes were confined to the GitHub Actions workflow.
 
 **Scope caveat:** Passing CI validates listed smoke assertions, mobile/desktop page rendering checks and the API cache header at deployment time; it is **not** an independent end-to-end field test of GPS, SOS calls, offline map behavior without internet, accessibility with elderly pilgrims, emergency response, or actual family tracking. Those remain separate product QA areas. The previous failing runs remain historically recorded and were not erased.
+
+
+## TGPU Iqra smoke-test and device-voice hardening — 8 October 2026
+
+**Production workflow and PWA status: VERIFIED GREEN.** This section supersedes earlier Iqra pre-existing smoke-workflow warnings while preserving historical run outcomes.
+
+### Production smoke workflow fix
+
+- Original `.github/workflows/post-deploy-smoke.yml` returned a failed pseudo-run with zero jobs. One probable source of its invalid YAML was an inline `run:` command containing an unquoted YAML colon-space inside the grep expression `'^x-frame-options: *DENY'`. Converted that command to a literal block scalar, made the smoke job check out the exact completed Azure deployment SHA, and replaced stale hardcoded home-shell and service-worker cache version expectations with comparisons to the checked-in source. The release marker `iqra-v83-trilingual-2026-10-07` remains independently checked. Code commit `1be6a3a34b05ff52fa036448f1ff10f9432a27fd` updated the smoke workflow only.
+- Normal push-triggered [Azure run 37747317275](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37747317275) **SUCCESS**, [PWA integrity run 37747317284](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37747317284) **SUCCESS**, and automatically triggered [Production smoke run 37747442214](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37747442214) **SUCCESS** at 2026-10-08 08:05:09 UTC. It verified `https://iqra.tgpu.my/` and release marker, referenced application assets, `X-Frame-Options: DENY`, manifest, curriculum, audio-manifest integrity and deployed service-worker source.
+
+### Device-voice fallback bugfix and proof
+
+- The repository's `data/audio/manifest.json` records metadata for **28 founder-authorised Arabic letter audio assets**, but each currently has `audioVerified: false` and `url: null`. No MP3 file exists in the repository `data/audio/` folder. The user's Google Drive searches did not identify accessible MP3 files in the available Iqra folder. Consequently, Iqra currently uses the mobile device's Arabic Web Speech synthesis as its fallback; **do not imply human-recorded audio is live**.
+- Found that the JavaScript speech start watchdog would exit without settling its Promise if the speech engine reported `pending` continuously, leaving audio controls in a waiting/playing state. Updated `audio-v23.js` to reject when `onend` fires without `onstart`, and to fail a never-started utterance after six seconds, even when the engine remains pending. No reviewed-audio flags, URLs, Quran pronunciation, approved logos or PWA cache identifiers were changed. Added reproducible Node VM tests at `scripts/test-audio-fallback.mjs` and a step in `.github/workflows/validate-pwa.yml`.
+- Bugfix commit `d335e9a3da0c5d52fc424aaaa672e58543d4640e`. Normal [PWA test run 37747721166](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37747721166) **SUCCESS**, including **Test Arabic device audio fallback lifecycle** (indefinite-pending timeout, silent end rejection, simulated normal Arabic speech completion). Normal [Azure deployment run 37747721300](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37747721300) **SUCCESS** at 2026-10-08 08:08:03 UTC, followed by automatic [live smoke run 37747829975](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37747829975) **SUCCESS** at 2026-10-08 08:08:36 UTC, including live audio manifest and service-worker checks.
+
+**IMPORTANT REMAINING GATES:** The CI test uses a simulated speech engine; it cannot confirm audible sound from the user's actual Android/iOS device or whether an Arabic TTS voice is installed. The owner should tap a letter on `https://iqra.tgpu.my/` on their phone and report whether sound plays. To offer reliable founder-recorded voice, locate/upload the actual 28 MP3 binaries, verify filename and SHA-256 against existing manifest records, confirm playback and licensing/authorization, deploy assets, then mark each verified entry `audioVerified: true` with the genuine production URL after end-to-end tests. Do not fabricate or silently synthesize recordings, set unreviewed Quran recitation live, or equate CI with educational/religious approval.
