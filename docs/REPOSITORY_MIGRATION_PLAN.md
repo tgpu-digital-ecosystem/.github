@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Khalifah Kecil, Learning Hub, Academy and AMAL ownership transfers and post-transfer deployments verified; AMAL independent custom-domain check pending  
+**Status:** Five repositories (Khalifah Kecil, Learning Hub, Academy, AMAL, Iqra) transferred; Azure/Cloudflare post-transfer deployments verified; Iqra production smoke workflow and live-device/audio QA still pending  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -301,3 +301,18 @@ GitHub preflight confirms the source repository exists with administrative acces
 5. Update organisation profile and migration record, keeping repository private; do not move other repositories until Iqra transfer checks conclude.
 
 **Do-not-act-yet:** Do not modify or replace the approved Iqra logo, author new recorded audio, enable Quran reader, set `audioVerified` or `published` without review, rotate Azure token, reset browser progress, or reconfigure production DNS solely for a GitHub transfer.
+
+
+## TGPU Iqra transfer and deployment verification — 8 October 2026
+
+**GitHub ownership transfer: VERIFIED.** `tgpu-digital-ecosystem/tgpu-iqra` is owned by the TGPU organisation; repository ID `1392955949`, private visibility, default `main`, existing workflows and prior GitHub Actions history are preserved. GitHub's former `MamduhSaffin/tgpu-iqra` endpoint redirects to the same repository. The baseline source commit remains `fc7054b65c0c9337d6893cca78d319b4cdb4f405`. The migration did **not** modify Iqra source code, production audio, reviewed learning content, approved logo, custom domain, Azure token or service worker.
+
+**Post-transfer Azure deployment: SUCCESS.** Using the connected GitHub app, reran the existing successful Azure deployment job under the TGPU organisation. [GitHub Actions run 37524447816, attempt #2](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37524447816) completed successfully at 2026-10-08 07:26:16 UTC. The `Deploy TGPU Iqra to Azure Static Web Apps` step also passed. This confirms deployment via the repository's existing Azure token works under the new owner.
+
+**Post-transfer PWA integrity validation: SUCCESS.** [GitHub Actions run 37524447935, attempt #2](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37524447935) completed with success at 2026-10-08 07:25:06 UTC. Syntax, JSON, local references, approved manifest icons and service-worker shell consistency checked as configured. This **does not** prove Android audio playback, offline operation under network loss or cache freshness by device testing.
+
+**Known CI exception, pending separate investigation:** The existing `.github/workflows/post-deploy-smoke.yml` still produces immediate failures with zero jobs. At least two new unsuccessful runs appeared when the Azure and PWA job reruns began ([37743278389](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37743278389) and [37743273627](https://github.com/tgpu-digital-ecosystem/tgpu-iqra/actions/runs/37743273627)); each reports event `push` although the workflow YAML declares `workflow_run`. The exact validation/parse/startup failure has not been established. Existing smoke expectations are inconsistent with current source: a `tgpu-iqra-v83` service-worker cache is expected while the file declares `tgpu-iqra-v82`, and the expected home-shell version query `v=77` differs from the `index.html` reference `v=81`. **Do not mark post-deploy production smoke QA successful and do not silently change PWA cache semantics.**
+
+**Audio disclosure:** `data/audio/manifest.json` has 28 Iqra entries with no entries marked `audioVerified: true` and no production audio URL values at this baseline. Confirm voice assets, rights/approval and mobile playback separately before describing spoken pronunciation as working. Quran browser remains out of active runtime; Quran human review remains pending per source docs.
+
+**Operational state:** GitHub ownership migration and Azure deployment test **COMPLETE**; configured PWA CI validation **COMPLETE**; live domain, mobile/audio user acceptance and broken smoke workflow **PENDING**. The organisation's public README was updated to acknowledge Iqra as a private TGPU repository without exposing its contents. A normal new push-triggered Azure deployment has **not** been separately tested after transfer; the successful rerun validates deployment capability under the new owner, not all future event triggers. No other repository was moved in this step.
