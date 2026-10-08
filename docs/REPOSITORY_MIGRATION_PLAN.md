@@ -316,3 +316,45 @@ GitHub preflight confirms the source repository exists with administrative acces
 **Audio disclosure:** `data/audio/manifest.json` has 28 Iqra entries with no entries marked `audioVerified: true` and no production audio URL values at this baseline. Confirm voice assets, rights/approval and mobile playback separately before describing spoken pronunciation as working. Quran browser remains out of active runtime; Quran human review remains pending per source docs.
 
 **Operational state:** GitHub ownership migration and Azure deployment test **COMPLETE**; configured PWA CI validation **COMPLETE**; live domain, mobile/audio user acceptance and broken smoke workflow **PENDING**. The organisation's public README was updated to acknowledge Iqra as a private TGPU repository without exposing its contents. A normal new push-triggered Azure deployment has **not** been separately tested after transfer; the successful rerun validates deployment capability under the new owner, not all future event triggers. No other repository was moved in this step.
+
+
+## SATU and TEMAN Haramain paired preflight — 8 October 2026
+
+**Migration state:** REVIEWED, NOT TRANSFERRED. **Safer order:** (1) TEMAN Haramain while SATU remains at old path, (2) stabilise SATU Azure deploy and migrate SATU, (3) repoint TEMAN's pinned offline-map file download URLs to the new SATU organisation path, verify pinned SHA unchanged and both downloads valid. No production app code, Azure settings, secrets or DNS were changed during this preflight.
+
+### Current repositories and baselines
+
+| Attribute | SATU | TEMAN Haramain |
+| --- | --- | --- |
+| Source | `MamduhSaffin/SATU` | `MamduhSaffin/TEMAN-Haramain-by-TGPU` |
+| Planned target | `tgpu-digital-ecosystem/SATU` | `tgpu-digital-ecosystem/TEMAN-Haramain-by-TGPU` |
+| Repository ID | `1390665990` | `1396888337` |
+| Visibility | **PUBLIC — preserve** | **PUBLIC — preserve** |
+| Default branch | `main` | `main` |
+| Source commit at preflight | `19249761746edc9a374b87b1836d96595785da3c` | `a1ea524b8cffe2dc3c4fba9d30e3d6d16cdd13a5` |
+| Production domain | `https://satu.tgpu.my/` | `https://teman.tgpu.my/` |
+| Hosting | Azure Static Web Apps, Vite frontend + API | Azure Static Web Apps, Vite frontend + API, pinned PMTiles map packs |
+| Required GitHub Actions secrets | `AZURE_STATIC_WEB_APPS_API_TOKEN` (plus auto-supplied `GITHUB_TOKEN`) | `AZURE_STATIC_WEB_APPS_API_TOKEN` (plus auto-supplied `GITHUB_TOKEN`) |
+
+### Pre-existing continuous-deployment exceptions
+
+- **SATU latest deployment failed before transfer:** [run 37523177957](https://github.com/MamduhSaffin/SATU/actions/runs/37523177957), despite installation/build and approved asset staging passing. The Azure action's log ends: `The content server has rejected the request with: BadRequest`; `Reason: No matching Static Web App environment was found.` The previous [run 37523167038](https://github.com/MamduhSaffin/SATU/actions/runs/37523167038) deployed successfully with production-domain verification, but refers to an earlier commit and overlapping runs may have interacted. **Do not assert the cause is an invalid token** without Azure verification. `Verify SATU` [run 37523177974](https://github.com/MamduhSaffin/SATU/actions/runs/37523177974) succeeded for the latest SHA. **SATU transfer is ON HOLD until source deployment configuration is validated or the owner authorises proceeding with a documented broken deployment baseline.**
+- **TEMAN latest deployment workflow failed final verification before transfer:** [run 37519757279](https://github.com/MamduhSaffin/TEMAN-Haramain-by-TGPU/actions/runs/37519757279). Regression tests, app build, the pinned PMTiles download and Azure upload all completed successfully; only `Verify live production domain` failed (exit 1). The repo's `public/release.html` declares `teman-v10-feedback-mobile-2026-10-07`, and its `public/sw.js` still declares cache `teman-shell-v9` while its smoke workflow expects `teman-shell-v10`. This is a grounded source/workflow mismatch and potential source of the verification failure, **but not proven to be the exact live-domain failure cause**. The prior [run 37517570592](https://github.com/MamduhSaffin/TEMAN-Haramain-by-TGPU/actions/runs/37517570592) succeeded at an earlier SHA. Do not alter service-worker cache naming without confirming release/cache semantics.
+- Both sites' independent live HTTP reachability could not be established from the assistant's web environment at preflight. Avoid ungrounded uptime claims.
+
+### Cross-repository offline-map dependency (must preserve)
+
+TEMAN's `.github/workflows/azure-static-web-apps.yml` downloads from `raw.githubusercontent.com/MamduhSaffin/SATU/59ca2c8535b83b77e6f41ab80584e29cd5c05794/public/maps/`:
+
+- `makkah.pmtiles` — **2,412,635 bytes**, blob SHA `727608744a56fe089341c77fcf32ef714a0be32c`.
+- `madinah.pmtiles` — **2,242,253 bytes**, blob SHA `fbc38de46c5a3c73205870639b11d633b3b48cb7`.
+
+Both files were verified in the pinned SATU commit and on the present SATU main branch. TEMAN's latest failed workflow **successfully downloaded both** before its Azure deploy and final smoke step. SATU also contains the feature branch `teman-street-map-v0.5` map-pack-building workflow; keep Git branches and assets intact. Avoid renaming/deleting SATU or making it private. Raw.githubusercontent.com old-owner redirects after transfer must **not** be assumed to work indefinitely. When SATU moves, update TEMAN's download URLs to `tgpu-digital-ecosystem/SATU/<same SHA>/...` and verify download hashes and deployment, without regenerating packs or changing coordinates.
+
+### Controlled migration sequence
+
+1. **TEMAN first:** the owner transfers `MamduhSaffin/TEMAN-Haramain-by-TGPU` → `tgpu-digital-ecosystem/TEMAN-Haramain-by-TGPU`, remaining **PUBLIC**. SATU remains at original owner path during this step, so the pinned map downloads are preserved. After transfer verify same repo ID, main SHA, public visibility, workflows and Azure token availability; perform controlled test/build/deploy, carefully distinguish existing production smoke-test failure from new errors. If deployment is blocked, stop and record it; do not falsely declare complete. Also check live site via owner if external checks remain unavailable.
+2. **SATU after deployment issue investigation:** investigate Azure's `No matching Static Web App environment` response, confirm the intended Azure SWA resource/environment and deployment token without exposing its value. Avoid parallel overlapping production deploy runs. Once a clean deployment baseline is available, the owner transfers SATU to TGPU and tests Azure deployment and domain.
+3. **Retarget pinned TEMAN map source:** change only the GitHub repository owner component of TEMAN's two PMTiles URLs to `tgpu-digital-ecosystem/SATU`, keeping commit `59ca2c8535b83b77e6f41ab80584e29cd5c05794` and paths/contents unchanged. Verify map assets are accessible and tests/deployment still work. Keep public source licences/attributions.
+
+**Do not-act-yet:** No mass transfers, no DNS or token rotations without evidence, no PWA/mobile app feature changes during ownership migration, no regenerated or replaced Protomaps map data, no deletion of SATU's embedded historical TEMAN code or map branch, and no statements guaranteeing safety functionality before fresh testing.
