@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Seven repositories transferred (Khalifah Kecil, Learning Hub, Academy, AMAL, Iqra, TEMAN Haramain, SATU); source control and post-transfer production deploy capability verified; TEMAN post-deploy smoke workflow still fails, Iqra smoke and mobile/audio QA pending.
+**Status:** Seven repositories transferred; TEMAN's full automated Azure/live-site smoke workflow now passes (8 Oct 2026); separate Iqra smoke/mobile audio QA and remaining ecosystem migrations pending.
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -399,3 +399,23 @@ Both files were verified in the pinned SATU commit and on the present SATU main 
 **Organisation profile:** Updated public organisation README to link SATU directly at `tgpu-digital-ecosystem/SATU` and include SATU among public migrated products. TEMAN public repo link already points at TGPU organisation.
 
 **Remaining follow-up:** Diagnose TEMAN's smoke failure with narrow assertion-level logging; align v9/v10 checks after approved cache strategy. Also address Iqra's existing smoke validation and audio/mobile QA separately. Avoid unnecessary mass transfer or modification of production DNS, tokens, approved artwork, or offline map packs.
+
+
+## TEMAN production smoke-test remediation — 8 October 2026
+
+**STATUS: RESOLVED — full automatic GitHub Actions workflow SUCCESS.**
+
+### Diagnosed cause
+
+- Prior TEMAN GitHub Actions `Verify live production domain` failed with exit code 1 despite passing Azure deploy and map-pack downloads. The project already deployed properly, and the owner verified the website on their mobile device.
+- Added assertion-by-assertion diagnostic logging only to `.github/workflows/azure-static-web-apps.yml` at commit `94b5564a09c385c007c76970ef3f043a9c6c77b6`. The [diagnostic run 37746324444](https://github.com/tgpu-digital-ecosystem/TEMAN-Haramain-by-TGPU/actions/runs/37746324444) confirmed live release marker, HTML title, PWA manifest, robots.txt and sitemap assertions all passed. The **specific failure** was the hardcoded smoke-test expectation `teman-shell-v10` even though the deployed and checked-in `public/sw.js` cache identifier was `teman-shell-v9`.
+- Updated only the CI assertion at commit `9fc5274fd5ce933ce6c13abfe5f3a3d06883aac4` to derive the exact expected service-worker cache line from the **checked-in `public/sw.js` file**, then compare it with the live `teman.tgpu.my/sw.js`. Kept the independent `teman-v10-feedback-mobile-2026-10-07` release marker check, service-worker API bypass check, family API `no-store` check, live mobile/desktop browser checks and other validations intact. Version numbers for release marker and PWA cache are not assumed to match.
+
+### Final verification
+
+- [GitHub Actions run 37746697117](https://github.com/tgpu-digital-ecosystem/TEMAN-Haramain-by-TGPU/actions/runs/37746697117), triggered by a normal push on `main`, commit `9fc5274fd5ce933ce6c13abfe5f3a3d06883aac4`, completed **SUCCESS** at 2026-10-08 07:59:41 UTC.
+- `Test TEMAN` job **SUCCESS** (regression tests and build).
+- `Build and Deploy TEMAN` job **SUCCESS**: pinned map packs downloaded from `tgpu-digital-ecosystem/SATU`; Azure Static Web Apps deployment successful; live custom-domain verification **SUCCESS**; `teman-live-qa` screenshot artifact uploaded successfully, including GitHub Actions headless browser tests of mobile and desktop render at deployment time.
+- No TEMAN production application JS/TS/CSS, service worker, PWA cache identifier, approved branding assets, map binary files, emergency/SOS logic, DNS settings or Azure secret values were changed to resolve the smoke test. Changes were confined to the GitHub Actions workflow.
+
+**Scope caveat:** Passing CI validates listed smoke assertions, mobile/desktop page rendering checks and the API cache header at deployment time; it is **not** an independent end-to-end field test of GPS, SOS calls, offline map behavior without internet, accessibility with elderly pilgrims, emergency response, or actual family tracking. Those remain separate product QA areas. The previous failing runs remain historically recorded and were not erased.
