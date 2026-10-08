@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/tgpu-digital-ecosystem/.github/main/assets/tgpu-master-symbol.svg" alt="TGPU Digital Ecosystem approved master symbol" width="126" height="126" />
+
 # TGPU Digital Ecosystem
 
 ### Practical technology for learning, everyday life, and cross-border opportunity
