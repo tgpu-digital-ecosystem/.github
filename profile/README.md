@@ -66,7 +66,7 @@ Selected repositories from the TGPU organisation and founder's development portf
 - [Khalifah Kecil — TGPU organisation](https://github.com/tgpu-digital-ecosystem/khalifah-kecil)
 - [GCC Market Entry](https://github.com/MamduhSaffin/sell-to-the-middle-east)
 
-**Khalifah Kecil** (public), **TGPU Learning Hub** (private), **TGPU Academy** (private), and **AMAL** (private) are now managed under this organisation. Private source code is available only to authorised collaborators. Other linked repositories currently remain under the founder's GitHub account, and further migrations will proceed one at a time after deployment checks.
+**Khalifah Kecil** (public), **TGPU Learning Hub** (private), **TGPU Academy** (private), **AMAL** (private), and **TGPU Iqra** (private) are now managed under this organisation. Private source code is available only to authorised collaborators. Other linked repositories currently remain under the founder's GitHub account, and further migrations will proceed one at a time after deployment checks.
 
 ## Organisation & collaboration
 
