@@ -188,3 +188,36 @@ GitHub preflight confirms the source repository exists with administrative acces
 **Automatic deployment verification — COMPLETE:** That README commit triggered a fresh **push** workflow [run 37741285056](https://github.com/tgpu-digital-ecosystem/tgpu-learning-hub/actions/runs/37741285056) from the new owner. It completed **successfully** at 2026-10-08 07:06:21 UTC. GitHub Actions reports success for Cloudflare Pages deployment, custom-domain confirmation, DNS record check and production domain/logo verification. This establishes that the normal push-driven production deployment continues to work after the ownership transfer. Do not expose secret values or make the private repository public.
 
 **Other projects:** Academy remains a candidate for independent preflight; no other production repository was transferred as part of Learning Hub migration.
+
+
+## Academy transfer preflight — 8 October 2026
+
+**Project:** TGPU Academy, structured learning and professional-development MVP.  
+**Source:** `MamduhSaffin/tgpu-academy`  
+**Target:** `tgpu-digital-ecosystem/tgpu-academy`  
+**Status:** **READY FOR OWNER-INITIATED GITHUB TRANSFER** — not transferred yet.  
+**Visibility:** PRIVATE — must remain private.  
+**Repository ID:** `1406947238` (verify unchanged after transfer).  
+**Default branch:** `main`.  
+**Source commit before transfer:** `aeccf86f1c3a0a720841d5855f1e824a76e2a0b9`.
+
+### Deployment baseline
+
+- Hosting: Cloudflare Pages project `tgpu-academy`.
+- Production domain: `https://academy.tgpu.my/`.
+- Latest pre-transfer GitHub Actions run [37713897424](https://github.com/MamduhSaffin/tgpu-academy/actions/runs/37713897424), `push` on 8 October 2026: **success**.
+- Workflow `.github/workflows/deploy.yml` completed all steps successfully: static output preparation, required secrets check, Cloudflare Pages project and deployment, custom-domain attachment, DNS record and live homepage/Study Malaysia verification.
+- Required GitHub Actions secrets (NAMES ONLY): `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. Do not disclose values.
+- GitHub connector installation is enabled for all organisation repositories.
+- The target `tgpu-digital-ecosystem/tgpu-academy` was absent before transfer; old owner appears in the source README's repository field, to be updated after transfer.
+
+### Ownership transfer and validation procedure
+
+1. Owner transfers the private repository through GitHub repo **Settings → General → Danger Zone → Transfer ownership**, selecting `tgpu-digital-ecosystem`; retain name `tgpu-academy` and **private** visibility. This requires action from the account owner; the connected GitHub app has no repository transfer operation.
+2. Assistant verifies target owner, original repository ID, main commit SHA, private visibility, workflow file, and GitHub Actions run history.
+3. Assistant triggers a controlled rerun of the existing successful deployment job from the new organisation repository and verifies Cloudflare deployment, DNS and public site checks.
+4. Assistant changes only the README repository attribution to `tgpu-digital-ecosystem/tgpu-academy`; this pushes to `main` and tests automatic post-transfer deployment.
+5. Assistant confirms the new push-triggered GitHub Actions run succeeds, particularly the custom-domain and Study Malaysia production checks.
+6. Assistant updates the public TGPU organisation profile without exposing private source code and records the migration result here.
+
+**Do not** disable Actions, reset Cloudflare credentials, reconfigure DNS or move another production repository unless a specific failed check requires a separate reviewed action. GitHub Free organisation private-repository settings and protections should be reviewed after transfer where relevant.
