@@ -157,3 +157,21 @@ For each project record:
 **Pending / not verified:** The environment used to check `https://khalifah.tgpu.my/` could not resolve the domain, so this is **not** a claim that an independent public HTTP check passed. The owner previously confirmed the site worked **before** transfer. Confirm post-transfer public website functionality at a convenient opportunity. Azure Static Web Apps' GitHub OAuth/source link and *automatic* on-push delivery are not independently verified by this successful manual rerun; they can be checked on the next planned release. Do not change DNS, production credentials, or repository settings without evidence they require changes.
 
 **Operational state:** GitHub ownership migration **COMPLETE**; Azure **manual deployment validation COMPLETE**; independent post-transfer domain/scheduled next push validation **PENDING**. No further production changes needed at this stage. Other repository transfers remain pending separate preflight.
+
+
+## Next candidate preflight — TGPU Learning Hub, 8 October 2026
+
+**Source:** `MamduhSaffin/tgpu-learning-hub`  
+**Target:** `tgpu-digital-ecosystem/tgpu-learning-hub`  
+**Transfer status:** **PENDING — owner must perform ownership transfer in GitHub UI**  
+**Visibility:** Private, must remain private. 
+**Default branch:** `main`.
+**Production:** `https://learning.tgpu.my/`, Cloudflare Pages project `tgpu-learning-hub`.
+
+GitHub preflight confirms the source repository exists with administrative access, the destination name is not currently occupied, and the most recent production GitHub Actions run [37523065381](https://github.com/MamduhSaffin/tgpu-learning-hub/actions/runs/37523065381) succeeded before transfer. The successful job checked Cloudflare Pages deployment, production custom domain and the approved logo asset. Source commit at preflight: `148d9c4cf35a63cc4d65b643207197b73da57ff5`.
+
+**Workflow credential requirements:** `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` are referenced as GitHub Actions secrets. Repository-level secrets ordinarily remain associated during ownership transfer per GitHub documentation, but secret values are not inspectable and the destination should be tested with a controlled rerun. The only located `MamduhSaffin` reference was in the README repository attribution; update that reference after successful transfer, **not before**, because writes to `main` trigger production deployment.
+
+**Risk gate:** Private repositories moving to a GitHub Free organisation may lose some paid-plan features such as protected branches or GitHub Pages. No such feature is verified as actively configured for this source repository. No private→public visibility change is permitted. Public uptime cannot be independently verified by this tool; rely on successful release smoke checks and perform live checks after transfer.
+
+**Planned procedure:** Owner transfers via repository Settings → General → Danger Zone → Transfer ownership into `tgpu-digital-ecosystem`. Assistant then verifies repository identity, privacy and history, safely triggers the existing Cloudflare deployment job, inspects the resulting run, updates README's owner reference only after deployment proves safe, and marks the result in this log. Do not modify any other production repositories automatically.
