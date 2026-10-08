@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** Planning / preflight only  
+**Status:** First repository ownership transfer verified; Azure post-transfer deployment validation pending  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -20,7 +20,8 @@ An organisation does not need GitHub Enterprise for this work. Maintain existing
 - [ ] Organisation avatar visually confirmed by the owner.
 - [ ] Organisation security / owner recovery / team access reviewed.
 - [ ] Pilot repository preflight completed.
-- [ ] First repository transferred and verified.
+- [x] First repository ownership transfer verified (Khalifah Kecil, GitHub repo and history).
+- [ ] Khalifah Kecil post-transfer Azure deployment verified.
 - [ ] Remaining repositories transferred and verified.
 
 ## Critical no-regression rules
@@ -40,7 +41,7 @@ An organisation does not need GitHub Enterprise for this work. Maintain existing
 
 **Source:** [MamduhSaffin/khalifah-kecil](https://github.com/MamduhSaffin/khalifah-kecil)  
 **Target:** `tgpu-digital-ecosystem/khalifah-kecil`  
-**Current status:** Public, production application  
+**Current status:** Transferred into TGPU GitHub organisation; production integration post-transfer needs verification  
 **Current domain:** https://khalifah.tgpu.my/  
 **Primary hosting:** Azure Static Web Apps  
 **Branch:** `main`  
@@ -137,4 +138,13 @@ For each project record:
 - **Issues / rollback actions**
 - **Final status**: PENDING, BLOCKED, READY, or COMPLETE
 
-> This document records the migration plan, not an executed transfer. As of 8 October 2026, production repositories remain owned by the personal GitHub account.
+> **Update, 8 October 2026:** Khalifah Kecil has been transferred to `tgpu-digital-ecosystem`. All other production repositories in this plan remain under `MamduhSaffin` unless their status is explicitly updated.
+
+
+## Transfer verification — 8 October 2026
+
+**Verified via GitHub:** `tgpu-digital-ecosystem/khalifah-kecil` exists under the target organisation; visibility is public, default branch `main`, administrative access exists, and original repository ID `1400659385` remains intact. The prior `MamduhSaffin/khalifah-kecil` path redirects to the same repository, and existing 52 Actions runs are visible at the new URL. The current `main` commit remains `fbe1371f1cd8d6c24ae92e5bc62164bc43f71f04`. The deployment workflow file remains intact and references secret name `AZURE_STATIC_WEB_APPS_API_TOKEN`.
+
+**NOT yet validated:** A new Azure deployment **after** the ownership transfer, including any necessary Azure source-repository authorisation. The successful run on 8 October 2026 at 03:20 UTC was completed **before** this transfer; it is not evidence of post-transfer continuous deployment. GitHub's API does not reveal Actions secret values. Current live-domain availability after transfer is also not independently established.
+
+**Next steps:** (1) verify the moved repository has the required Actions secret name; (2) inspect Azure Static Web Apps → deployment/source provider association, reconnect to `tgpu-digital-ecosystem/khalifah-kecil` if required; (3) run a controlled Azure GitHub Actions test from the new repository; (4) confirm `https://khalifah.tgpu.my/` still works; (5) mark the pilot fully COMPLETE only after these checks. **Do not reset an Azure token or alter DNS by default**; only change a token where necessary and rotate the secret accordingly. No other production repository was transferred as part of this action.
