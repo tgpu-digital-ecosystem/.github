@@ -1,6 +1,6 @@
 # TGPU Digital Ecosystem — Controlled GitHub Repository Migration
 
-**Status:** First repository ownership transfer verified; Azure post-transfer deployment validation pending  
+**Status:** Khalifah Kecil ownership transfer and post-transfer Azure deployment confirmed; independent live-domain check pending  
 **Reviewed:** 8 October 2026  
 **Source account:** [MamduhSaffin](https://github.com/MamduhSaffin)  
 **Destination organisation:** [tgpu-digital-ecosystem](https://github.com/tgpu-digital-ecosystem)  
@@ -21,7 +21,7 @@ An organisation does not need GitHub Enterprise for this work. Maintain existing
 - [ ] Organisation security / owner recovery / team access reviewed.
 - [ ] Pilot repository preflight completed.
 - [x] First repository ownership transfer verified (Khalifah Kecil, GitHub repo and history).
-- [ ] Khalifah Kecil post-transfer Azure deployment verified.
+- [x] Khalifah Kecil post-transfer Azure deployment verified (GitHub Actions attempt #3).
 - [ ] Remaining repositories transferred and verified.
 
 ## Critical no-regression rules
@@ -41,7 +41,7 @@ An organisation does not need GitHub Enterprise for this work. Maintain existing
 
 **Source:** [MamduhSaffin/khalifah-kecil](https://github.com/MamduhSaffin/khalifah-kecil)  
 **Target:** `tgpu-digital-ecosystem/khalifah-kecil`  
-**Current status:** Transferred into TGPU GitHub organisation; production integration post-transfer needs verification  
+**Current status:** Transferred into TGPU GitHub organisation; post-transfer Azure deployment successful; live-domain check pending  
 **Current domain:** https://khalifah.tgpu.my/  
 **Primary hosting:** Azure Static Web Apps  
 **Branch:** `main`  
@@ -148,3 +148,12 @@ For each project record:
 **NOT yet validated:** A new Azure deployment **after** the ownership transfer, including any necessary Azure source-repository authorisation. The successful run on 8 October 2026 at 03:20 UTC was completed **before** this transfer; it is not evidence of post-transfer continuous deployment. GitHub's API does not reveal Actions secret values. Current live-domain availability after transfer is also not independently established.
 
 **Next steps:** (1) verify the moved repository has the required Actions secret name; (2) inspect Azure Static Web Apps → deployment/source provider association, reconnect to `tgpu-digital-ecosystem/khalifah-kecil` if required; (3) run a controlled Azure GitHub Actions test from the new repository; (4) confirm `https://khalifah.tgpu.my/` still works; (5) mark the pilot fully COMPLETE only after these checks. **Do not reset an Azure token or alter DNS by default**; only change a token where necessary and rotate the secret accordingly. No other production repository was transferred as part of this action.
+
+
+## Post-transfer Azure deployment verification — 8 October 2026
+
+**CONFIRMED SUCCESS:** On the owner's instruction, ChatGPT triggered a **rerun of the existing successful build_and_deploy job** in `tgpu-digital-ecosystem/khalifah-kecil` using GitHub's official Actions API, without changing application code. GitHub accepted the rerun and recorded [run 37523198371, attempt #3](https://github.com/tgpu-digital-ecosystem/khalifah-kecil/actions/runs/37523198371) as **completed / success**, updated at 2026-10-08 06:59:07 UTC (14:59:07 Malaysia time). The `Deploy` step in `build_and_deploy` also completed with **success**. Therefore the existing GitHub Actions Azure deployment token was accepted and the deployment can be invoked from the new repository owner.
+
+**Pending / not verified:** The environment used to check `https://khalifah.tgpu.my/` could not resolve the domain, so this is **not** a claim that an independent public HTTP check passed. The owner previously confirmed the site worked **before** transfer. Confirm post-transfer public website functionality at a convenient opportunity. Azure Static Web Apps' GitHub OAuth/source link and *automatic* on-push delivery are not independently verified by this successful manual rerun; they can be checked on the next planned release. Do not change DNS, production credentials, or repository settings without evidence they require changes.
+
+**Operational state:** GitHub ownership migration **COMPLETE**; Azure **manual deployment validation COMPLETE**; independent post-transfer domain/scheduled next push validation **PENDING**. No further production changes needed at this stage. Other repository transfers remain pending separate preflight.
