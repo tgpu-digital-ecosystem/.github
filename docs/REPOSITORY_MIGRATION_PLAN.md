@@ -236,3 +236,20 @@ GitHub preflight confirms the source repository exists with administrative acces
 - No Cloudflare secrets were revealed, rotated or updated; no DNS changes were manually performed. Workflow's existing DNS consistency checks executed successfully.
 
 **Next:** Continue to the next product only after a separate preflight. Cloudflare's successful workflow verifies the public URL at deployment time; independent review of mobile UI and product behaviour is outside this migration scope. Do not imply accreditation or LMS capabilities beyond the Academy's established status.
+
+
+## AMAL migration preflight — 8 October 2026
+
+**Status:** READY FOR OWNER-INITIATED TRANSFER (deployment baseline passed; post-transfer verification mandatory). **No transfer has been initiated by the assistant.**
+
+- **Source:** `MamduhSaffin/tgpu-amal` (PRIVATE); **destination:** `tgpu-digital-ecosystem/tgpu-amal` (verified not present).
+- **Existing GitHub repository ID:** `1406139723`; default branch: `main`; archived: false; connected GitHub account has administrator access.
+- **Baseline source commit:** `5694b3ecbbf5c9857177237dac15d3a01a1bd123` at 2026-10-06 20:04 UTC.
+- **IMPORTANT DEPLOYMENT CORRECTION:** Active `.github/workflows/deploy-cloudflare.yml` deploys a **Cloudflare Worker**, NOT Cloudflare Pages, using `cloudflare/wrangler-action@v4` with `command: deploy`. Active `wrangler.toml` declares `name = "tgpu-amal"`, Worker entry `src/worker.ts`, static assets `./dist`, `workers_dev = true` and custom-domain route `amal.tgpu.my`. The README and `docs/CLOUDFLARE_PAGES_SETUP.md` are **stale**, describing a Pages deployment; do not use those instructions to reconfigure or transfer the running service.
+- **Required Actions secret names:** `CLOUDFLARE_API_TOKEN` only for the deployment workflow; repo secret values cannot be read with connector tools. Do not send or expose token.
+- **Latest pre-transfer deployment:** [run 37523630452](https://github.com/MamduhSaffin/tgpu-amal/actions/runs/37523630452), 6 October 2026, **success**, including Node setup, npm install, production build, secret presence check, Worker deploy and smoke test for `https://tgpu-amal.moesaffin.workers.dev/`. Paired [quality run 37523630327](https://github.com/MamduhSaffin/tgpu-amal/actions/runs/37523630327) also **success**.
+- **Not verified:** Independent current HTTP response for `https://amal.tgpu.my/`. The existing workflow smoke-tests the Workers.dev URL, **not** the custom domain. Do not claim custom-domain QA passed. External website fetch attempts were not available through the current environment.
+- **Owner-specific references:** Code search found a `MamduhSaffin/tgpu-amal` repository reference in `docs/CLOUDFLARE_PAGES_SETUP.md`; after transfer update/replace that outdated documentation and align the README with current Worker hosting.
+- **Transfer rules:** Owner transfers via repo Settings → General → Danger Zone → Transfer ownership to `tgpu-digital-ecosystem`, keeping `tgpu-amal` PRIVATE. Do not change Cloudflare DNS, Worker name, `wrangler.toml` routes, or API tokens solely to perform GitHub ownership transfer.
+- **Post-transfer tests:** Verify same repo ID, private visibility, `main`, source commit, workflow and Actions history. Rerun the previous successful Worker deployment job under the organisation, confirm all steps passed. Then correct the README and stale Pages setup docs in a documentation-only commit; verify push triggers both Worker deployment and the quality gate successfully. Confirm current `amal.tgpu.my` site via a user-side browser check before marking end-to-end production validation complete. Update TGPU profile to acknowledge AMAL as private without exposing source.
+- **Do-not-act-yet:** No other repository transfers, secret rotation, DNS work, Cloudflare Pages project setup, or code modifications. AMAL transfer needs an explicit action by the GitHub owner.
