@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+<title id="title">TGPU Digital Ecosystem</title>
+<desc id="desc">TGPU master symbol: a gold architectural arch with three leaves on deep green.</desc>
+<rect width="180" height="180" rx="36" fill="#0c2f22"/>
+<g fill="none" stroke="#b79150" stroke-linecap="round" stroke-linejoin="round">
+<path d="M43 137V77C43 52 61 36 90 17c29 19 47 35 47 60v60" stroke-width="10"/>
+</g>
+<g fill="#b79150">
+<path d="M90 48c16 18 18 36 0 55-18-19-16-37 0-55Z"/>
+<path d="M55 82c23 2 36 13 35 37-23-3-36-14-35-37Z"/>
+<path d="M125 82c-23 2-36 13-35 37 23-3 36-14 35-37Z"/>
+</g>
+<path d="M90 82v54M90 116 65 96M90 116l25-20" fill="none" stroke="#b79150" stroke-width="6" stroke-linecap="round"/>
+</svg>
